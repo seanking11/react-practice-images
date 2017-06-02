@@ -34,15 +34,22 @@ class App extends Component {
         })
     }
 
+
     render() {
+      const size = 25; // Amount of images pulled from the API
+
       // Failed Response
       if (this.state.requestFailed) return <p>Failed</p>
       // Success Response
       if (!this.state.apiData) return <p>Loading...</p>
       return (
-        <div>
-          <img className="thumbnail" src={this.state.apiData[0].thumbnailUrl} />
-          <h4>{this.state.apiData[0].title}</h4>
+        <div className="flex-container">
+          {this.state.apiData.slice(0, size).map((image, index) =>
+            <div className="flex-item">
+              <img className="thumbnail" src={image.thumbnailUrl} />
+              
+            </div>
+          )}
         </div>
       )
     }
