@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import Image from './Image.js';
 import './App.css';
 
 const url = 'https://jsonplaceholder.typicode.com/photos';
@@ -12,7 +13,10 @@ class App extends Component {
       }
     }
 
+
+
     componentDidMount(){
+      const qtyOfResponses = 25; // Amount of images pulled from the API
       fetch(url)
         .then(response => {
           if (!response.ok) {
@@ -23,9 +27,10 @@ class App extends Component {
         })
         .then(d => d.json())
         .then(d => {
-          console.log(d);
+
+          const dataSlice = d.slice(0, qtyOfResponses);
           this.setState({
-            apiData: d
+            apiData: dataSlice
           })
         }, () => {
           this.setState({
@@ -34,22 +39,18 @@ class App extends Component {
         })
     }
 
-
     render() {
-      const size = 25; // Amount of images pulled from the API
-
       // Failed Response
       if (this.state.requestFailed) return <p>Failed</p>
       // Success Response
       if (!this.state.apiData) return <p>Loading...</p>
       return (
-        <div className="flex-container">
-          {this.state.apiData.slice(0, size).map((image, index) =>
-            <div className="flex-item">
-              <img className="thumbnail" src={image.thumbnailUrl} />
-              
-            </div>
-          )}
+        <div className="container">
+          <div className="flex-container">
+            {this.state.apiData.map((image, index) =>
+              <Image item={image} key={index} index={index}/>
+            )}
+          </div>
         </div>
       )
     }
