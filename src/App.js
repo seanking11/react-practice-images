@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Image from './Image.js';
+import ImageModal from './ImageModal.js';
 import './App.css';
 
 const url = 'https://jsonplaceholder.typicode.com/photos';
@@ -9,11 +9,11 @@ class App extends Component {
     constructor(props){
       super(props)
       this.state = {
-        requestFailed: false
+        requestFailed: false,
+        showModal: false,
+        activeImg: ''
       }
     }
-
-
 
     componentDidMount(){
       const qtyOfResponses = 25; // Amount of images pulled from the API
@@ -29,6 +29,7 @@ class App extends Component {
         .then(d => {
 
           const dataSlice = d.slice(0, qtyOfResponses);
+          console.log(dataSlice);
           this.setState({
             apiData: dataSlice
           })
@@ -39,6 +40,20 @@ class App extends Component {
         })
     }
 
+    open = (d) => {
+      this.setState({
+        showModal: true,
+        activeImg: d.src,
+        activeTitle: d.title
+      });
+
+      console.log(this.state);
+    }
+
+    close = () => {
+      this.setState({showModal: false});
+    }
+
     render() {
       // Failed Response
       if (this.state.requestFailed) return <p>Failed</p>
@@ -47,14 +62,14 @@ class App extends Component {
       return (
         <div className="container">
           <div className="flex-container">
-            {this.state.apiData.map((image, index) =>
-              <Image item={image} key={index} index={index}/>
+            {this.state.apiData.map((image) =>
+              <Image thumbnailUrl={image.thumbnailUrl} key={image.id} id={image.id} onClick={() => this.open({src: image.url, title: image.title})} />
             )}
           </div>
+          <ImageModal show={this.state.showModal} close={this.close} activeImg={this.state.activeImg} activeTitle={this.state.activeTitle}></ImageModal>
         </div>
       )
     }
 }
-
 
 export default App;
