@@ -3,14 +3,6 @@ import Image from './Image.js';
 import ImageModal from './ImageModal.js';
 import './App.css';
 
-// Holds all the descriptions in local storage. If it doesn't exist, create it.
-const descriptions = (localStorage.getItem('descriptions') == null || localStorage.getItem('descriptions') == "") ? [] : JSON.parse(localStorage.getItem('descriptions'));
-
-descriptions.push({
-  id: 1,
-  description: "Hello"
-});
-
 const url = 'https://jsonplaceholder.typicode.com/photos';
 
 class App extends Component {
@@ -48,33 +40,18 @@ class App extends Component {
         })
     }
 
-
-    // Old plan - On click of an image, grab the ID of the current image, loop through the descriptions array (seperate)
-    // to see if id's match. If it does, update the state with that description.
-    // Cons - annoying to handle with current knowledge
-    // Pros - small storage size
-
-    // New plan - On click of image, grab the desc property (most likely undefined)
-    // on close, add a desc prop to that object in the apiData array. Store that in local storage.
-    // Cons - takes up more local storage
-    // Pros - easier to handle
-
-
-    // In local storage, have an object with keys being the id's and the values being the description
     open = (d) => {
       this.setState({
         showModal: true,
         activeImg: d.src,
         activeTitle: d.title,
-        activeDescription: d.description == undefined ? '' : d.description,
+        activeDescription: localStorage.getItem(d.id),
         activeID: d.id
       });
-      console.log(this.state);
     }
 
-    // Set in local storage
     close = (d) => {
-      console.log(d);
+      localStorage.setItem(this.state.activeID, d);
       this.setState({
         showModal: false
       });

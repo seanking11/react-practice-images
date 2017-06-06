@@ -2,35 +2,26 @@ import React, { Component } from 'react';
 import './App.css';
 import { Button, Modal, FormControl } from 'react-bootstrap';
 
-//{this.props.activeTitle.length > 50 ? this.props.activeTitle.substring(0, 50) + "..." : this.props.activeTitle}
-
-class ImageModal extends Component {
-
-    render() {
-      return (
+const ImageModal = (props) => (
+  <div>
+    <Modal show={props.show} onHide={() => props.close(this.input.value)}>
+      <Modal.Header closeButton>
+        <Modal.Title>{props.activeTitle}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <img className="img-responsive" src={props.activeImg} />
+      </Modal.Body>
+      <Modal.Footer>
+        <h5 className="description-header">Description</h5>
+        <div className="description-form">
+          <FormControl placeholder="Add a description" inputRef={ref => {this.input = ref;}} defaultValue={props.activeDescription}></FormControl>
+        </div>
         <div>
-        <Modal show={this.props.show} onHide={this.props.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>{this.props.activeTitle}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img className="img-responsive" src={this.props.activeImg} />
-          </Modal.Body>
-          <Modal.Footer>
-            <div className="col-xs-9">
-              <FormControl placeholder="Description" inputRef={ref => {this.input = ref;}}></FormControl>
-            </div>
-            <div className="col-xs-3">
-              <Button onClick={() => this.props.close(this.input.value)}>Save & Close</Button>
-            </div>
-          </Modal.Footer>
-        </Modal>
-      </div>
-      )
-    }
-}
-
-// How do I give the value of the <Button> within the onclick? this.props.close(theValueTypedInAbove)
-
+          <Button className="modal-close-btn" onClick={() => props.close(this.input.value)}>Close</Button>
+        </div>
+      </Modal.Footer>
+    </Modal>
+  </div>
+)
 
 export default ImageModal;
