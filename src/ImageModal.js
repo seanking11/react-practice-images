@@ -18,10 +18,10 @@ class ImageModal extends Component {
           </Modal.Body>
           <Modal.Footer>
             <div className="col-xs-9">
-              <FormControl placeholder="Description"></FormControl>
+              <FormControl placeholder="Description" inputRef={ref => {this.input = ref;}}></FormControl>
             </div>
             <div className="col-xs-3">
-              <Button onClick={this.props.close}>Save & Close</Button>
+              <Button onClick={() => this.props.close(this.input.value)}>Save & Close</Button>
             </div>
           </Modal.Footer>
         </Modal>
@@ -29,6 +29,8 @@ class ImageModal extends Component {
       )
     }
 }
+
+// How do I give the value of the <Button> within the onclick? this.props.close(theValueTypedInAbove)
 
 
 export default ImageModal;
