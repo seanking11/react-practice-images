@@ -1,6 +1,6 @@
 # react-practice-li-codetest
 
-Code test from Label Insight used as a React exercise.
+React exercise using data from an API and implementing Bootstrap as a framework.
 
 ## Getting started
 

@@ -40,18 +40,18 @@ class App extends Component {
         })
     }
 
-    open = (d) => {
+    open(image) {
       this.setState({
         showModal: true,
-        activeImg: d.src,
-        activeTitle: d.title,
-        activeDescription: localStorage.getItem(d.id),
-        activeID: d.id
+        activeImg: image.src,
+        activeTitle: image.title,
+        activeDescription: localStorage.getItem(image.id),
+        activeID: image.id
       });
     }
 
-    close = (d) => {
-      localStorage.setItem(this.state.activeID, d);
+    close = (description) => {
+      localStorage.setItem(this.state.activeID, description);
       this.setState({
         showModal: false
       });

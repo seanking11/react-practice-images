@@ -14,7 +14,7 @@ const ImageModal = (props) => (
       <Modal.Footer>
         <h5 className="description-header">Description</h5>
         <div className="description-form">
-          <FormControl placeholder="Add a description" inputRef={ref => {this.input = ref;}} defaultValue={props.activeDescription}></FormControl>
+          <FormControl placeholder="Add a description" inputRef={ref => {this.input = ref;}} defaultValue={props.activeDescription} />
         </div>
         <div>
           <Button className="modal-close-btn" onClick={() => props.close(this.input.value)}>Close</Button>
