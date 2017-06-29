@@ -33,3 +33,22 @@
   height:auto;
   min-width: 19%;
 }
+
+.description-header {
+  text-align: left;
+}
+
+.description-form {
+  width: 85%;
+  margin-right: 5px;
+  float: left;
+}
+@media (max-width: 450px) {
+  .description-form {
+    width: 78%;
+  }
+}
+
+.modal-close-btn {
+  float: right;
+}
